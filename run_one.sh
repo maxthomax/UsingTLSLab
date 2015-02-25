@@ -120,13 +120,6 @@ function check_id() {
     fi
 }
 
-# Echoes a randomly chosen character from a string.
-function echo_random() {
-    S="${1}"
-    RANDOM_INDEX=$(( ${RANDOM} % ${#S} ))
-    echo -n "${S:${RANDOM_INDEX}:1}"
-}
-
 # Creates login credentials for accessing the container and
 # prepares an entry for the /etc/shadow file.
 # E.g.:
@@ -135,23 +128,9 @@ function echo_random() {
 function create_credentials() {
     PID="${1}"
 
-    # Construct password
-    # The dictionaries omit letters that resemble others too much.
-    # As the distinction is used just for generating pronounceable passwords,
-    # vowels and consonants are not strictly the correct grammatical sets.
-    DICT_LOWER_VOWELS='aeiouy'
-    DICT_LOWER_CNSNTS='bcdfghjkmnpqrstvwxz'  # omitted: l
-    DICT_UPPER_VOWELS='AEUY'    # omitted: I, O
-    DICT_UPPER_CNSNTS='BCDFGHJKLMNPQRSTVWXZ'
-    PWD="$(
-        echo -n ${PID}
-        echo_random "${DICT_UPPER_CNSNTS}"
-        echo_random "${DICT_UPPER_VOWELS}"
-        echo_random "${DICT_LOWER_CNSNTS}"
-        echo_random "${DICT_LOWER_VOWELS}"
-    )"
+    PWD=secappdev
     # Compute the password's hash
-    PWD_HASH="$(echo "${PWD}" | mkpasswd --stdin --method=sha-512)"
+    PWD_HASH="$(echo "${PWD}")"
 
     # Compute the timestamp of the password's creation
     DATE_LAST_CHANGE=$(( $(date "+%s") / 24 / 60 / 60 ))
@@ -160,7 +139,7 @@ function create_credentials() {
     echo "${USER}:${PWD_HASH}:${DATE_LAST_CHANGE}:0:99999:7:::" >> "${USER_DIR}/etc/shadow"
 
     # Save credentials to the user's README
-    echo "Username: ${USER}" >> "${README}"
+    echo "Username: root" >> "${README}"
     echo "Password: ${PWD}"  >> "${README}"
 }
 
