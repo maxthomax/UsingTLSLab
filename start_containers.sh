@@ -10,5 +10,7 @@ docker rm $(docker ps -a -q);
 for i in {1..15};
 	# Left-pad with zero to two digits and
 	# call the container instantiating script.
-	do ii="0${i}" "${DIR}/run_one.sh" "${ii: -2}";
+	do 
+		ii="0${i}";
+		"${DIR}/run_one.sh" "${ii: -2}";
 done
