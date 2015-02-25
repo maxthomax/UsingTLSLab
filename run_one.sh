@@ -36,8 +36,9 @@ CONTAINTER_PREFIX='UsingTLS'
 ID="${1}"
 
 # The directory where the configurations are stored, as an absolute path
-DIR="$(dirname "${0}")"
-DIR="$(realpath "${DIR}")"
+pushd "`dirname ${0}`"
+DIR="`pwd`"
+popd
 
 # The configuration directory of this ID
 USER_DIR="${DIR}/students/${ID}"
