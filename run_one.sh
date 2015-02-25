@@ -79,7 +79,7 @@ function id_taken() {
 
     # Look for the desired container name among the existing containers.
     docker ps --all=true \
-    | cut --characters="${OFFSET}-" \
+    | cut -c "${OFFSET}-" \
     | grep --regexp="${CONTAINER_NAME}" --quiet
 
     # The exit code of the previous pipeline gives the answer.
