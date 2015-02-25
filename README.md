@@ -15,9 +15,9 @@ so that its ports can be mapped correctly. On OS X this can be most easily achie
 The next step is to bring the docker daemon back up and start the containers with the correct port mapping. On OS X, this can be achieved with the `start_containers.sh` script.
 The containers are now reachable from external sources by specifying the IP address of the host and the port of the docker container, e.g.
 ```
-    ssh root@10.0.132.191 -p 11022
+    ssh root@10.0.132.191 -p 2211
 ```
 or
 ```
-    curl 10.0.132.191:11080
+    curl 10.0.132.191:8011
 ```
