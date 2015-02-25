@@ -5,7 +5,7 @@ If you are on OS X, it is assumed that boot2docker is installed. On Windows, a V
 On OS X, boot2docker needs to be started. This includes setting environment variables appropriately. Instructions are echoed on the command line.
 If the image has not yet been built,
 ```
-    docker build  -t maxthomax/usingtlslab .
+    ./build_image.sh
 ```
 If you are running the docker daemon in a virtual machine, such as is the case with boot2docker/OSX, you need to bring the VM down, e.g.
 ```
