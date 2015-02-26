@@ -198,7 +198,7 @@ function run_container() {
         --publish "${HOST_HTTP_PORT}:${CONT_HTTP_PORT}" \
         --publish "${HOST_HTTPS_PORT}:${CONT_HTTPS_PORT}" \
         --name="${CONTAINER_NAME}" \
-        "${LAB_IMAGE}" > dev/null
+        "${LAB_IMAGE}" > /dev/null
 
     # Temporarily suspended separate credentials per container.
     #   --volume="${USER_DIR}/etc/shadow:/etc/shadow" \
