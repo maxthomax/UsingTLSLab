@@ -1,0 +1,25 @@
+$ docker build -t secappdev/usingtls:v2 .
+Step 0 : FROM ubuntu:14.10
+ ---> cfaba6b5fefe
+Step 1 : MAINTAINER thomas.herlea@owasp.org
+ ---> Using cache
+ ---> ed762f16946f
+Step 2 : RUN apt-get update && apt-get install -y   apache2   nano   openssh-server   supervisor   vim
+ ---> Using cache
+ ---> 4e3df837425c
+Step 3 : RUN mkdir -p   /var/lock/apache2   /var/run/apache2   /var/run/sshd   /var/log/supervisor
+ ---> Using cache
+ ---> 461fd03639e9
+Step 4 : COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ ---> Using cache
+ ---> 63c4f67526b4
+Step 5 : EXPOSE 22 80 443
+ ---> Running in 138d6d37917a
+ ---> 584e0aa49dfe
+Removing intermediate container 138d6d37917a
+Step 6 : CMD ["/usr/bin/supervisord"]
+ ---> Running in d93c1eebda38
+ ---> b1675bdca9e9
+Removing intermediate container d93c1eebda38
+Successfully built b1675bdca9e9
+$

@@ -1,0 +1,27 @@
+Step 0 : FROM ubuntu:14.10
+ ---> cfaba6b5fefe
+Step 1 : MAINTAINER thomas.herlea@owasp.org
+ ---> Using cache
+ ---> ed762f16946f
+Step 2 : EXPOSE 22 80 443
+ ---> Using cache
+ ---> 7d3ba8d30bba
+Step 3 : RUN apt-get update && apt-get install -y   apache2   libapache2-mod-php5   nano   openssh-server   supervisor   vim
+ ---> Using cache
+ ---> 10d01d7437b1
+Step 4 : RUN mkdir -p   /var/lock/apache2   /var/run/apache2   /var/run/sshd   /var/log/supervisor
+ ---> Using cache
+ ---> c6f092ac84f9
+Step 5 : COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ ---> Using cache
+ ---> baa954dc60cd
+Step 6 : RUN echo 'root:secappdev' | chpasswd
+ ---> Using cache
+ ---> 4e935601abf0
+Step 7 : RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+ ---> Using cache
+ ---> f0c9ca8f77d7
+Step 8 : CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+ ---> Using cache
+ ---> 8eebc400149b
+Successfully built 8eebc400149b
