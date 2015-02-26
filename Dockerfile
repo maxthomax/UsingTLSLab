@@ -24,10 +24,16 @@ RUN mkdir -p \
 # Provide supervisor configuration
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+# (The distinct user credentials per container approach is temporarily
+# suspended in favour of root access with shared password.)
 # User management
 # --disabled-login is used to enable unattended user creation, especially
 #   since passwords will be managed from outside the container
-RUN adduser --gecos 'Student of "Using TLS"' --disabled-login student && adduser student sudo
+#RUN adduser --gecos 'Student of "Using TLS"' --disabled-login student && adduser student sudo
+
+# Root access with shared password
+RUN echo 'root:secappdev' | chpasswd
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # Default command
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

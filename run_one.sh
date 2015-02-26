@@ -5,7 +5,7 @@
 # Usage: run_one.sh ID
 #   ID - two digits which will be used to distinguish this container from its peers
 
-# Depends on: docker, mkpasswd
+# Depends on: docker, (mkpasswd)
 
 
 # Configuration
@@ -170,11 +170,15 @@ function run_container() {
 
     # Create copies of directories needed by students
     mkdir -p "${USER_DIR}"
-    cp -a "${DIR}/etc_skel/" "${USER_DIR}/etc"
     cp -a "${DIR}/www_skel/" "${USER_DIR}/www"
 
+    # The following commands are temporarily suspended, as on Mac OSX
+    # the dependency on 'mkpasswd' is not easily satisfied.
+    # Instead, all containers are to be accessed as Root, with a shared
+    # password, handled in Dockerfile.
+    #cp -a "${DIR}/etc_skel/" "${USER_DIR}/etc"
     # Create login credentials
-    create_credentials "${ID}"
+    #create_credentials "${ID}"
 
     # Save daemon ports to the user's README
     echo "SSH   port:  ${HOST_SSH_PORT}"  >> "${README}"
@@ -189,13 +193,15 @@ function run_container() {
     # Launch the container
     docker run \
         ${MODE} \
-        --volume="${USER_DIR}/etc/shadow:/etc/shadow" \
         --volume="${USER_DIR}/www:/var/www" \
         --publish "${HOST_SSH_PORT}:${CONT_SSH_PORT}" \
         --publish "${HOST_HTTP_PORT}:${CONT_HTTP_PORT}" \
         --publish "${HOST_HTTPS_PORT}:${CONT_HTTPS_PORT}" \
         --name="${CONTAINER_NAME}" \
         "${LAB_IMAGE}"
+
+    # Temporarily suspended separate credentials per container.
+    #   --volume="${USER_DIR}/etc/shadow:/etc/shadow" \
 }
 
 # Destroys ID's container and configuration
