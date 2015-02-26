@@ -36,9 +36,9 @@ CONTAINTER_PREFIX='UsingTLS'
 ID="${1}"
 
 # The directory where the configurations are stored, as an absolute path
-pushd "`dirname ${0}`"
+pushd "$(dirname ${0})" > /dev/null
 DIR="`pwd`"
-popd
+popd > /dev/null
 
 # The configuration directory of this ID
 USER_DIR="${DIR}/students/${ID}"
@@ -198,7 +198,7 @@ function run_container() {
         --publish "${HOST_HTTP_PORT}:${CONT_HTTP_PORT}" \
         --publish "${HOST_HTTPS_PORT}:${CONT_HTTPS_PORT}" \
         --name="${CONTAINER_NAME}" \
-        "${LAB_IMAGE}"
+        "${LAB_IMAGE}" > dev/null
 
     # Temporarily suspended separate credentials per container.
     #   --volume="${USER_DIR}/etc/shadow:/etc/shadow" \
