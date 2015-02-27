@@ -1,0 +1,20 @@
+#!/bin/bash
+
+DIR="$(dirname "${0}")"
+CA_DIR='/etc/ssl/demoCA'
+CSR="${1}"
+
+mkdir -p "${CA_DIR}/newcerts"
+
+echo 01 > "${CA_DIR}/serial"
+
+rm -f "${CA_DIR}/index.txt"
+touch "${CA_DIR}/index.txt"
+
+openssl ca -config '/etc/ssl/openssl.cnf' \
+  -in "${CSR}" -keyfile "${DIR}/cakeys.key" \
+  -extensions v3_req \
+  -cert "${DIR}/cacert.crt" \
+  -out '/etc/ssl/certs/casigned.crt'
+
+#EOF

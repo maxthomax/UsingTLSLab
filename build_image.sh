@@ -17,7 +17,8 @@ IMG_NAME=usingtls
 # v07: Reverted to original supervisord.conf, as password is provisioned in a simpler way.
 # v08: Added PHP5 to the installed software.
 # v09: Reverted from distinct passwords per container to a shared password and root access.
-IMG_TAG=v09
+# v10: Added Certification Authority simulation scripts
+IMG_TAG=v10
 
 # Assemble full image name.
 IMAGE_TAG="${IMG_USER}/${IMG_NAME}:${IMG_TAG}"

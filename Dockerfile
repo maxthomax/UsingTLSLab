@@ -24,6 +24,9 @@ RUN mkdir -p \
 # Provide supervisor configuration
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+# Provide Certification Authority simulation scripts
+COPY ca /root/ca
+
 # (The distinct user credentials per container approach is temporarily
 # suspended in favour of root access with shared password.)
 # User management
